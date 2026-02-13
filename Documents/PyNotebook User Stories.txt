@@ -1,0 +1,12 @@
+PyNotebook User Stories:
+
+C - REQ-1: As a beginner coding learner, I can input code into a text box that will act as an IDE
+C - REQ-2: As a beginner coding learner, the text box will give guidelines on what to be entered
+C - REQ-3: As a user, the interfacing will show my original code, errors, and eventually the quiz questions
+C - REQ-4: As a beginner, I will be forced into manually entering code at first
+A - REQ-5: As a test taker, I can view all questions generated on a single page
+A - REQ-6: As a test taker, I can select from 4 multiple choice answers per question
+A - REQ-7: As a test taker, I can submit my test and receive feedback on how many questions were right
+V- REQ-8: As a student, I will move onto a new subject after completing a quiz
+V- REQ-9: As a user, my code will be parsed into the categories for a quiz 
+V- REQ-10: As a student, I can repeat quizzes from previously completed lessons
