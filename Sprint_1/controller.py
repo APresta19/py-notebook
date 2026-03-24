@@ -34,13 +34,27 @@ templates, as well as the context dictionary for potential use in the user inter
 @return: A tuple containing a list of generated questions and the context dictionary.
 """
 def process_code(code: str):
+
+    valid, error = validate_code(code)
+
+    if not valid:
+        return{
+            "success": False,
+            "error": error,
+            "questions": [],
+        }
     # Scan the code to extract context
     context = scan_code(code)
     
     # Generate questions based on the context and available question templates
     questions = generate_questions(context)
 
-    return questions, context
+    return {
+        "success": True,
+        "error": None,
+        "questions": questions,
+        "context": context
+    }
 
 
 """
@@ -63,22 +77,46 @@ def generate_questions(context):
         if template.id == "var_type":
             for var in context["variables"]:
                 q = template.prompt.format(var=var)
-                questions.append((q, template.options))
+                questions.append({
+                    "question": q,
+                    "options": template.options,
+                    "type": template.qtype
+                })
 
         if template.id == "var_value":
             for var in context["variables"]:
                 q = template.prompt.format(var=var)
-                questions.append((q, None))  # No options for short answer
-        
+                questions.append({
+                    "question": q,
+                    "options": template.options,
+                    "type": template.qtype
+                })
+
         if template.id == "output":
             q = template.prompt.format()
-            questions.append((q, None)) 
+            questions.append({
+                "question": q,
+                "options": template.options,
+                "type": template.qtype
+            })
         
         if template.id == "loop_count":
             for loop in context["loops"]:
                 q = template.prompt.format(loop_count=loop)
-                questions.append((q, None))  # No options for short answer
+                questions.append({
+                    "question": q,
+                    "options": template.options,
+                    "type": template.qtype
+                })
     
     return questions
     
+## Validate function is meerly for TESTING purposes.
+def validate_code(code):
+    # Basic validation to check if the code is not empty and contains valid characters
+    if not code.strip():
+        return False, "Code cannot be empty."
     
+    # Additional validation can be added here (e.g., checking for balanced parentheses, valid syntax, etc.)
+    
+    return True, None 
