@@ -31,7 +31,7 @@ class question_storage:
         self.questions: List[question_template] = self.load_questions()
         
     def load_questions(self) -> List[question_template]:
-        # For now, we will return an empty list or some hardcoded questions for testing.
+        # For now, we will return some hardcoded questions.
         return [
             # -------- VARIABLE QUESTIONS --------
             question_template(
@@ -69,6 +69,12 @@ class question_storage:
                 placeholders=["loop_count"]
             ),
         ]
+    
+    def get_all_questions(self) -> List[question_template]:
+        return self.questions
+    
+
+
 
 
 
