@@ -12,7 +12,7 @@
             <button type="submit">Run & Generate Questions</button>
         </form>
 
-        {result}
-        {questions_html}
+        {{ result | safe }}
+        {{ questions_html | safe }}
     </body>
     </html>
