@@ -11,7 +11,7 @@ Functions:
 TBD 
 """
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flaskwebgui import FlaskUI
 
 from controller import process_code
@@ -41,34 +41,7 @@ def home():
             for q in response["questions"]:
                 questions_html += f"<p>{q['question']}</p>"
 
-    return f"""
-    <html>
-    <head>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {{
-                const textarea = document.getElementById('codebox');
-                textarea.addEventListener('paste', function(e) {{
-                    e.preventDefault();
-                    alert("Pasting is disabled!");
-                }});
-            }});
-        </script>
-    </head>
-    <body>
-        <h1>Python Learning Notebook</h1>
-
-        <form method="post">
-            <textarea id="codebox" name="code" rows="10" cols="60"
-            placeholder="Type your Python code here..."></textarea><br><br>
-
-            <button type="submit">Run & Generate Questions</button>
-        </form>
-
-        {result}
-        {questions_html}
-    </body>
-    </html>
-    """
+    return render_template("Question_Test.html")
 
 if __name__ == '__main__':
     ui = FlaskUI(app=app, server="flask", width=800, height=600)
