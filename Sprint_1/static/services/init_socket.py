@@ -1,15 +1,8 @@
 from flask import Flask, render_template, request
-from flask_socketio import SocketIO, emit
 from localStoragePy import localStoragePy
-from process_manager import ProcessManager
-import subprocess
-import threading
-import socketio
+from static.services.process_manager import ProcessManager
+from static.sockets.getSocketIO import socketio
 
-#app = Flask(__name__)
-#app.config["SECRET_KEY"] = "secret!"
-#socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
-#localStorage = localStoragePy('team-facing-namespace', 'text')
 process_manager = ProcessManager()
 
 compile_files = []
@@ -34,8 +27,8 @@ def init_socket():
         print("Client disconnected")
 
     # Handle compile and input sockets
-    from compile_socket import register_compile_socket
-    from input_socket import register_input_socket
+    from static.services.compile_socket import register_compile_socket
+    from static.services.input_socket import register_input_socket
 
     register_compile_socket(socketio, process_manager)
     register_input_socket(socketio, process_manager)

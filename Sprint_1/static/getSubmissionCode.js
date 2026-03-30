@@ -1,5 +1,10 @@
-window.getSubmissionCode = function() {
+import socket from "./sockets/getSocketBackend.js";
+import { getTerminal } from "./services/initTerminal.js";
+
+export default function getSubmissionCode() {
+    console.log("Clicked submission.");
     let compileButton = document.querySelector(".compile");
+    
 
     // Determine button type
     if(!compileButton)
@@ -14,23 +19,17 @@ window.getSubmissionCode = function() {
         const code = window.monacoEditor.getValue();
         localStorage.setItem("code", code);
 
-        // Clear previous output
-        document.querySelector(".output").textContent = "";
-        document.querySelector(".error-output").textContent = "";
-
         // Clear terminal
-        window.clearTerminal();
+        getTerminal()?.clearTerminal();
 
         // Change button to stop
         compileButton.textContent = "⏹ Stop";
         compileButton.classList.add("stop-button");
         compileButton.classList.remove("compile");
 
-        const problemStr = document.querySelector(".problem-text").textContent;
-        const num = Number(problemStr.substring(problemStr.indexOf(" ")+1, problemStr.length));
-
         // Emit the compile event with the code
-        socket.emit("compile", {code: code });
+        console.log("Code emitted: ", code);
+        socket.emit("compile", { code: code });
     }
     else
     {
@@ -39,3 +38,10 @@ window.getSubmissionCode = function() {
         socket.emit("stop_process");
     }
 }
+
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("compile") || e.target.classList.contains("stop-button")) 
+    {
+        getSubmissionCode();
+    }
+});

@@ -30,7 +30,10 @@ export class TerminalManager
     }
 
     setupTerminalSockets() {
+        console.log("Setting up terminal sockets.");
+
         this.socket.on("output", (line) => {
+            console.log("Output line: ", line);
             this.term.write(line);
         });
 

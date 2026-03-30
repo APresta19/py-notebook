@@ -12,7 +12,7 @@ class ProcessManager:
         return self.processes.get(sid)
     
     def terminate_process(self, sid):
-        process = self.remove_process(self, sid)
+        process = self.remove_process(sid)
         if process:
             process.terminate()
             process.wait()

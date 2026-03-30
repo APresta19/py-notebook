@@ -1,6 +1,6 @@
 from flask import request
-from write_input import write_input
-from stream_output import stream_output
+from static.services.write_input import write_input
+from static.services.stream_output import stream_output
 
 def register_input_socket(socketio, process_manager):
     @socketio.on('input_added')
