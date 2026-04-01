@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <script src="{{url_for('static', filename='codebox.js')}}"></script>
+    </head>
+    <body>
+        <h1>Python Learning Notebook</h1>
+
+        <form method="post">
+            <textarea id="codebox" name="code" rows="10" cols="60"
+            placeholder="Type your Python code here..."></textarea><br><br>
+
+            <button type="submit">Run & Generate Questions</button>
+        </form>
+
+        {{ result | safe }}
+        {{ questions_html | safe }}
+    </body>
+    </html>
