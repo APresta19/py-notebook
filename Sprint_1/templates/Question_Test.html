@@ -1,18 +1,118 @@
 <html>
-    <head>
-        <script src="{{url_for('static', filename='codebox.js')}}"></script>
-    </head>
-    <body>
-        <h1>Python Learning Notebook</h1>
+<head>
+    <title>PyNotebook</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #1e1e2f;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
+
+        .grid-container {
+            display: grid;
+
+            /* 2 columns: left panel + main IDE */
+            grid-template-columns: 300px 1fr;
+
+            /* 2 rows: main content + quiz */
+            grid-template-rows: 1fr 250px;
+
+            height: 100vh;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        /* Lesson Panel (Top Left) */
+        .lesson-panel {
+            grid-column: 1;
+            grid-row: 1;
+            background-color: #2b2b3c;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        /* IDE Panel (Main Center) */
+        .ide-panel {
+            grid-column: 2;
+            grid-row: 1;
+            background-color: #1e1e2f;
+            border: 1px solid #333;
+            border-radius: 8px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Quiz Panel (YOUR SECTION) */
+        .quiz-panel {
+            grid-column: 1 / span 2; /* spans across bottom */
+            grid-row: 2;
+            background-color: #2b2b3c;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-y: auto;
+        }
+
+        .placeholder {
+            color: #777;
+            font-style: italic;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="grid-container">
+
+    <!-- Lesson Panel (NOT YOURS) -->
+    <div class="lesson-panel">
+        <h2>Lesson</h2>
+        <p class="placeholder">Lesson content will go here</p>
+    </div>
+
+    <!-- IDE Panel (NOT YOURS) -->
+    <div class="ide-panel">
+        <p class="placeholder">IDE will be integrated here</p>
+    </div>
+
+    <!-- Quiz Panel (YOUR RESPONSIBILITY) -->
+    <div class="quiz-panel">
+        <h2>Quiz</h2>
 
         <form method="post">
-            <textarea id="codebox" name="code" rows="10" cols="60"
-            placeholder="Type your Python code here..."></textarea><br><br>
-
-            <button type="submit">Run & Generate Questions</button>
+            <button type="submit">Generate Questions</button>
         </form>
 
-        {{ result | safe }}
-        {{ questions_html | safe }}
-    </body>
-    </html>
+        <div>
+            {{ result | safe }}
+        </div>
+
+        <div>
+            {{ questions_html | safe }}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
