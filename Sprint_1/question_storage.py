@@ -22,7 +22,7 @@ class question_template:
     category: str
     prompt: str
     qtype: str
-    placeholder: Optional[str] = None
+    placeholders: Optional[str] = None
     options: Optional[List[str]] = None
 
 # Class header TBD

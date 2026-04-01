@@ -44,7 +44,7 @@ def home():
     return render_template('Question_Test.html', result=result, questions_html=questions_html)
 
 if __name__ == '__main__':
-    ui = FlaskUI(app=app, server="flask", width=800, height=600)
+    ui = FlaskUI(app=app, server="flask", width=1920, height=1080)
     ui.run()
 
     
