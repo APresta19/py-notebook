@@ -90,3 +90,24 @@ class lesson_interface:
         print("\n--- Lesson Content ---")
         print(lesson.content)
         print("----------------------")
+
+    # 5. Navigation between Lessons and Main Menu
+    def run(self):
+        while True:
+            self.display_lesson_menu()
+            choice = input("Select a lesson: ")
+
+            if not choice.isdigit():
+                print("Invalid input. Please enter a number.")
+                continue
+
+            choice = int(choice)
+
+            if choice == 0:
+                print("Returning to Main Menu...")
+                break
+
+            # 3. Connect Lesson Selection to Lesson Content Retrieval
+            self.display_lesson(choice)
+
+            input("\nPress Enter to return to the lesson menu...")
