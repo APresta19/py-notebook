@@ -39,7 +39,7 @@ class question_storage:
                 category="variables",
                 prompt="What is the type of {var}?",
                 qtype="multiple_choice",
-                placeholder=["var"],
+                placeholders=["var"],
                 options=["int", "str", "float", "list", "bool"]
             ),
 
@@ -48,7 +48,7 @@ class question_storage:
                 category="variables",
                 prompt="What is the value of {var} after execution?",
                 qtype="short_answer",
-                placeholder=["var"]
+                placeholders=["var"]
             ),
 
             # -------- OUTPUT QUESTIONS --------
@@ -57,7 +57,7 @@ class question_storage:
                 category="output",
                 prompt="What is the output of this code?",
                 qtype="short_answer",
-                placeholder=[]
+                placeholders=[]
             ),
 
             # -------- LOOP QUESTIONS --------
@@ -66,7 +66,7 @@ class question_storage:
                 category="loops",
                 prompt="How many times does this loop run?",
                 qtype="multiple_choice",
-                placeholder=["loop_count"]
+                placeholders=["loop_count"]
             ),
         ]
     
