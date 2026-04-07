@@ -12,6 +12,7 @@ def register_compile_socket(socketio, process_manager):
     print("Registering compile socket")
     @socketio.on('compile')
     def compile_button(data):
+        print("Emitting compile process")
         # Emit compile process event to client
         socketio.emit("compile_process")
 
@@ -30,7 +31,7 @@ def register_compile_socket(socketio, process_manager):
 
         stream_output(process, sid)
 
-        thread = threading.Thread(target=stream_output, daemon=True)
+        thread = threading.Thread(target=stream_output, args=(process, sid), daemon=True)
         thread.start()
 
         # Program has stopped
