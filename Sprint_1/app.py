@@ -16,6 +16,9 @@ from flaskwebgui import FlaskUI
 from static.sockets.getSocketIO import socketio
 
 from controller import process_code
+from lesson_interface import lesson_storage
+
+_lesson_storage = lesson_storage()
 
 app = Flask(__name__)
 socketio.init_app(app, cors_allowed_origins="*")
@@ -43,7 +46,8 @@ def home():
             for q in response["questions"]:
                 questions_html += f"<p>{q['question']}</p>"
 
-    return render_template('Question_Test.html', result=result, questions_html=questions_html)
+    lesson = _lesson_storage.get_lesson_by_id(1)
+    return render_template('Question_Test.html', result=result, questions_html=questions_html, lesson=lesson)
 
 @app.route('/render-compiler')
 def render_compiler():

@@ -1,12 +1,60 @@
-<!-- Lesson Template
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- Lesson Panel — included inside .lesson-panel in Question_Test.html -->
 
-</body>
-</html>
--->
+<style>
+    .lesson-title {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        color: #c9d1e0;
+        border-bottom: 1px solid #444;
+        padding-bottom: 6px;
+    }
+
+    .lesson-section-label {
+        font-size: 0.75em;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #888;
+        margin: 12px 0 4px 0;
+    }
+
+    .lesson-content {
+        font-size: 0.9em;
+        color: #c9d1e0;
+        line-height: 1.55;
+        margin: 0;
+    }
+
+    .lesson-guidelines {
+        font-size: 0.85em;
+        color: #a0b0c8;
+        background-color: #23233a;
+        border-left: 3px solid #4CAF50;
+        padding: 8px 10px;
+        border-radius: 4px;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .lesson-problem {
+        font-size: 0.88em;
+        color: #e0c97f;
+        background-color: #23233a;
+        border-left: 3px solid #e0c97f;
+        padding: 8px 10px;
+        border-radius: 4px;
+        margin: 0;
+        line-height: 1.5;
+    }
+</style>
+
+<h2 class="lesson-title">{{ lesson.title }}</h2>
+
+<p class="lesson-section-label">Overview</p>
+<p class="lesson-content">{{ lesson.content }}</p>
+
+<p class="lesson-section-label">Guidelines</p>
+<p class="lesson-guidelines">{{ lesson.guidelines }}</p>
+
+<p class="lesson-section-label">Problem</p>
+<p class="lesson-problem">{{ lesson.problem_description }}</p>
