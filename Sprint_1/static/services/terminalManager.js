@@ -51,6 +51,10 @@ export class TerminalManager
         });
     }
 
+    writeToTerminal(msg) {
+        this.term.write(msg);
+    }
+
     handleInputTerminal(data)
     {
         // Check for enter press
