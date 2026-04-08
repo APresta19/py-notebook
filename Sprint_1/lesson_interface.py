@@ -24,6 +24,8 @@ class lesson:
     id: int
     title: str
     content: str
+    guidelines: str = ""
+    problem_description: str = ""
 
 
 # Class to store and retrieve lessons
