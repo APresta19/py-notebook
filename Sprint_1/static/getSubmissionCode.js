@@ -30,6 +30,9 @@ export default function getSubmissionCode() {
         // Emit the compile event with the code
         console.log("Code emitted: ", code);
         socket.emit("compile", { code: code });
+
+        //Send code to parent window for testing purposes
+        window.parent.postMessage({ type: "code_submission", code: code }, "*");
     }
     else
     {

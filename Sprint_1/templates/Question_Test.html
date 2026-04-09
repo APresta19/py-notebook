@@ -96,22 +96,18 @@
 
     <!-- Quiz Panel (YOUR RESPONSIBILITY) -->
     <div class="quiz-panel">
-        <h2>Quiz</h2>
 
-        <form method="post">
-            <button type="submit">Generate Questions</button>
-        </form>
+    <h2>Quiz</h2>
 
-        <div>
-            {{ result | safe }}
-        </div>
-
-        <div>
-            {{ questions_html | safe }}
-        </div>
+    <button onclick="generateQuestions()">Generate Questions</button>
+    
+    <div id="quiz-content">
+        <p class="placeholder">Click the button to generate quiz questions based on the current lesson.</p>
     </div>
-
 </div>
 
+</div>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='services/quizSocket.js') }}"></script>
 </body>
 </html>
