@@ -15,6 +15,8 @@ Functions:
 from flask import request
 from static.services.process_manager import ProcessManager
 from static.sockets.getSocketIO import socketio
+from controller import process_code
+from flask_socketio import emit
 
 process_manager = ProcessManager()
 
@@ -30,7 +32,26 @@ Description: This function registers all Socket.IO event handlers for client con
                 allowing the application to handle necessary events through WebSockets.
 """
 def init_socket():
-    # Client connection handler
+
+    @socketio.on('submit_code')
+    def handle_code_submission(data):
+        print(">>> submit_code received")          # confirm event arrived
+        code = data.get('code', '')
+        print(f">>> code length: {len(code)}")
+
+        if not code.strip():
+            emit('quiz_error', {'error': 'No code received'})
+            return
+
+        response = process_code(code)
+        print(f">>> process_code response: {response}")  # confirm questions generated
+
+        if not response["success"]:
+            emit('quiz_error', {'error': response['error']})
+        else:
+            print(f">>> emitting quiz_ready with {len(response['questions'])} questions")
+            emit('quiz_ready', {'questions': response['questions']})
+            
     @socketio.on("connect")
     def handle_connect():
         print("Client has been connected")
