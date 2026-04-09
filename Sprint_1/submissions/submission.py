@@ -1,3 +1,3 @@
 print("Hello Game Jam!")
-x = input("Enter: ")
+x = input("Enter name: ")
 print(x)
