@@ -49,6 +49,9 @@ def home():
 def render_compiler():
     return render_template('Render_Compiler.html')
 
+@socketio.on('compile')
+def handle_compile(data):
+    print("Received compile event with data: ", data)
 
 @socketio.on('connect')
 def handle_connect():
