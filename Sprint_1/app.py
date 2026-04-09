@@ -23,31 +23,10 @@ _lesson_storage = lesson_storage()
 app = Flask(__name__)
 socketio.init_app(app, cors_allowed_origins="*")
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def home():
-    # Variable Initialization
-    result = ""
-    questions_html = ""
-
-    # Handle form submission
-    if request.method == 'POST':
-        code = request.form.get('code') # For the testing of the code without the need of an IDE, will be changed.
-        response = process_code(code)
-
-        print(type(response))
-        print(response)
-        
-        if not response["success"]:
-            result = f"<p style='color:red;'>Error: {response['error']}</p>"
-        else:
-            result = "<p style='color:green;'>Code processed successfully!</p>"
-
-            questions_html = "<h3>Generated Questions:</h3>"
-            for q in response["questions"]:
-                questions_html += f"<p>{q['question']}</p>"
-
     lesson = _lesson_storage.get_lesson_by_id(1)
-    return render_template('Question_Test.html', result=result, questions_html=questions_html, lesson=lesson)
+    return render_template('Question_Test.html', lesson=lesson)
 
 @app.route('/render-compiler')
 def render_compiler():
