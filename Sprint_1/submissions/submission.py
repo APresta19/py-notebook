@@ -1,1 +1,5 @@
-print("Hello Game Jam!")
+name = 'Vincent'
+age = '21'
+
+print(name)
+print(age)
