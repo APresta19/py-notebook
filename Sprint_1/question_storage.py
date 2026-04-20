@@ -18,7 +18,7 @@ from typing import List, Dict, Optional
 # Define a dataclass for question templates, which will hold the structure of a question, including its ID, category, prompt, type, and optional fields for placeholders and options.
 @dataclass
 class question_template:
-    id: int
+    id: str
     category: str
     prompt: str
     qtype: str

@@ -71,43 +71,58 @@ It iterates through the question templates and fills in the placeholders with re
 """
 def generate_questions(context):
     questions = []
+    q_id = 0
 
     for template in storage.get_all_questions():
 
         if template.id == "var_type":
-            for var in context["variables"]:
+            for var, value in context["variables"].items():
                 q = template.prompt.format(var=var)
+
                 questions.append({
+                    "id": f"q{q_id}",
                     "question": q,
                     "options": template.options,
-                    "type": template.qtype
-                })
+                    "type": template.qtype,
+                    "correct_answer": type(value).__name__ 
+                }) 
+            q_id += 1
 
         if template.id == "var_value":
-            for var in context["variables"]:
+            for var, value in context["variables"].items():
                 q = template.prompt.format(var=var)
                 questions.append({
+                    "id": f"q{q_id}",
                     "question": q,
                     "options": template.options,
-                    "type": template.qtype
+                    "type": template.qtype,
+                    "correct_answer": str(value)
                 })
+            q_id += 1
 
         if template.id == "output":
             q = template.prompt.format()
             questions.append({
+                "id": f"q{q_id}",
                 "question": q,
                 "options": template.options,
-                "type": template.qtype
-            })
+                "type": template.qtype,
+                # implement method for determining correct output based on context["prints"]
+                "correct_answer": context["outputs"]
+               })
+            q_id += 1
         
         if template.id == "loop_count":
             for loop in context["loops"]:
                 q = template.prompt.format(loop_count=loop)
                 questions.append({
+                    "id": f"q{q_id}",
                     "question": q,
                     "options": template.options,
-                    "type": template.qtype
+                    "type": template.qtype,
+                    "correct_answer": "TBD" # implement method for determining correct answer based on loop structure
                 })
+            q_id += 1
     
     return questions
     

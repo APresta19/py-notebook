@@ -52,13 +52,16 @@ for question generation.
 @param code: A string containing the code to be scanned.
 @return: A dictionary with categorized code elements (e.g., variables, values, loops, prints).
 """
+import io
+import sys
+
 def scan_code(code: str):
     # The context dictionary is the main return value for later functions regarding question generation.
     context = {
-        "variables": [],
-        "values": {},
+        "variables": {},
         "loops": [],
-        "prints": []
+        "prints": [],
+        "outputs": ""
         # Additional categories can be added as needed (e.g., function definitions, conditionals, etc.)
     }
 
@@ -70,10 +73,7 @@ def scan_code(code: str):
         if "=" in line and "==" not in line: 
             parts = line.split("=")
             var = parts[0].strip()
-            value = parts[1].strip()
-
-            context["variables"].append(var)
-            context["values"][var] = infer_type(value)
+            context["variables"][var] = None  # placeholder
         
         # Print statement check
         if line.startswith("print("):
@@ -83,5 +83,27 @@ def scan_code(code: str):
         if line.startswith("for ") or line.startswith("while "):
             context["loops"].append(line)
         
+        # New execution output check 
+        old_stdout = sys.stdout
+        sys.stdout = io.StringIO()  # Redirect stdout to capture print output
+
+        try:
+            local_vars = {}
+            exec(code, {}, local_vars)
+
+            # Capture output
+            context["output"] = sys.stdout.getvalue().strip()
+
+            # Fill real variable values
+            for var in context["variables"]:
+                if var in local_vars:
+                    context["variables"][var] = local_vars[var]
+
+        except Exception as e:
+            context["output"] = f"Error: {str(e)}"
+
+        finally:
+            sys.stdout = old_stdout
+
     return context
         
