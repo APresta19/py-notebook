@@ -26,6 +26,7 @@ class lesson:
     content: str
     guidelines: str = ""
     problem_description: str = ""
+    problem_description_2: str = ""
 
 
 # Class to store and retrieve lessons
@@ -51,6 +52,13 @@ class lesson_storage:
                     "and one named age that stores your age as an integer. "
                     "Then print both variables on separate lines."
                 ),
+                problem_description_2=(
+                    "You are building a simple receipt. Create variables for three items: "
+                    "each item should have a name (string) and a price (float). "
+                    "Calculate the subtotal by adding all three prices. "
+                    "If the subtotal is greater than 20, apply a 10% discount. "
+                    "Print each item name and price, then print the final total."
+                ),
             ),
             lesson(
                 id=2,
@@ -66,21 +74,37 @@ class lesson_storage:
                     "Write a for loop that prints every even number from 2 to 10 (inclusive). "
                     "Hint: range() accepts a step argument — try range(start, stop, step)."
                 ),
+                problem_description_2=(
+                    "Print a 5x5 multiplication table using nested for loops. "
+                    "Each row should show the products for one number (1 through 5). "
+                    "Format each value so the columns line up neatly. "
+                    "Hint: use print(value, end='\\t') to separate values with a tab, "
+                    "and print() with no arguments to move to the next row."
+                ),
             ),
             lesson(
                 id=3,
-                title="Output in Python",
-                content="Use print() to display output. Example:\n\nprint('Hello World')",
+                title="Conditionals in Python",
+                content="Conditionals control the flow of a program. Example:\n\nx = 10\nif x > 5:\n    print('Greater')\nelif x == 5:\n    print('Equal')\nelse:\n    print('Less')",
                 guidelines=(
-                    "• print() can take multiple arguments separated by commas.\n"
-                    "• Use an f-string for easy variable formatting: print(f'Hello, {name}!').\n"
-                    "• The sep parameter controls what goes between items (default is a space).\n"
-                    "• The end parameter controls what is printed at the end (default is a newline)."
+                    "• Use if to check a condition; the block runs only when the condition is True.\n"
+                    "• elif lets you check additional conditions after the first if.\n"
+                    "• else runs when none of the above conditions are True.\n"
+                    "• Comparison operators: == (equal), != (not equal), >, <, >=, <=.\n"
+                    "• Indent each block with 4 spaces — Python requires consistent indentation."
                 ),
                 problem_description=(
-                    "Using a single print() statement, output your name and age in the format:\n"
-                    "My name is <name> and I am <age> years old.\n"
-                    "Use an f-string to insert the variable values."
+                    "Write a program that stores a number in a variable called score. "
+                    "Using if/elif/else, print 'A' if score >= 90, 'B' if score >= 80, "
+                    "'C' if score >= 70, or 'F' otherwise."
+                ),
+                problem_description_2=(
+                    "Write a FizzBuzz program for a single number stored in a variable called n. "
+                    "Print 'FizzBuzz' if n is divisible by both 3 and 5, "
+                    "'Fizz' if divisible by only 3, "
+                    "'Buzz' if divisible by only 5, "
+                    "or the number itself otherwise. "
+                    "Hint: use the modulo operator (%) and check the combined condition first."
                 ),
             ),
         ]
