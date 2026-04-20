@@ -20,6 +20,8 @@ from flask_socketio import emit
 
 process_manager = ProcessManager()
 
+current_questions = []  # Global variable to store current questions for the quiz
+
 """
 Function: init_socket()
 
@@ -52,6 +54,42 @@ def init_socket():
             print(f">>> emitting quiz_ready with {len(response['questions'])} questions")
             emit('quiz_ready', {'questions': response['questions']})
             
+            # Store the generated questions in a global variable for later use (e.g., for input handling)
+            global current_questions
+            current_questions = response['questions']  # Store the generated questions
+
+    @socketio.on('submit_answers')
+    def handle_answer_submission(data):
+        print(">>> submit_answers received")  # confirm event arrived
+        user_answers = data.get('answers', [])
+        print(f">>> answers received: {user_answers}")  # confirm answers received   
+
+        results = []
+
+        for question in current_questions:
+            question = question.copy()  # Create a copy to avoid modifying the original question template
+            question_id = question['id']
+            correct = str(question['correct_answer']).strip().lower()
+            user_answer = str(user_answers.get(question_id, '')).strip().lower()
+
+            is_correct = (user_answer == correct)
+
+
+            print("USER ANSWER: ", user_answer)
+            print("CORRECT ANSWER: ", correct)
+            print("IS CORRECT: ", is_correct)
+
+            results.append({
+                'question': question['question'],
+                'question_id': question_id,
+                'is_correct': is_correct,
+                'correct_answer': correct,
+                'user_answer': user_answer
+            })
+
+        emit ('quiz_results', {'results': results})
+
+
     @socketio.on("connect")
     def handle_connect():
         print("Client has been connected")
