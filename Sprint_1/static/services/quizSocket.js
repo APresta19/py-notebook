@@ -1,6 +1,6 @@
 // static/services/quizSocket.js
 
-const socket = io('http://127.0.0.1:5000');
+import socket from "../sockets/getSocketBackend.js";
 
 function generateQuestions() {
     const code = localStorage.getItem('code');
@@ -120,6 +120,12 @@ socket.on("quiz_results", function(data) {
             </div>
         `;
     });
+    //Window test complete variable for Andrew's piece
+
+    window.testComplete = true;
+
+    //
+    emit("quiz_completed");
     
     html += `<h3>Score: ${correctCount} / ${data.results.length}</h3>`;
 
