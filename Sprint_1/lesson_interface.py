@@ -107,6 +107,30 @@ class lesson_storage:
                     "Hint: use the modulo operator (%) and check the combined condition first."
                 ),
             ),
+            lesson(
+                id=4,
+                title="Cumulative Lesson",
+                content="Solve the Problem.",
+                guidelines=(
+                    "• The problems incorporate the concepts from all of the previous lesson.\n"
+                    "• Problem 2 is the extension of problem 1."
+                ),
+                problem_description=(
+                    "Write a program that stores a variable called total set to 0 and a variable called count set to 0. "
+                    "Use a for loop to go through every number from 1 to 20 (inclusive). "
+                    "Inside the loop, use a conditional to check if the number is odd: if so, add it to total and increment count by 1. "
+                    "After the loop, print the sum of all odd numbers and how many odd numbers were found. "
+                    "Then use a conditional to print 'Above 100!' if total is greater than 100, or 'At most 100.' otherwise."
+                ),
+                problem_description_2=(
+                    "Extend your program from Problem 1. In the same loop, also track the sum of even numbers in a variable called even_total. "
+                    "After the loop, print both the odd sum and the even sum. "
+                    "Use a conditional to print 'Odd sum wins' if the odd sum is greater, 'Even sum wins' if the even sum is greater, "
+                    "or 'It is a tie!' if they are equal. "
+                    "Then create a variable called grand_total equal to total + even_total and print it. "
+                    "Use a final conditional to print 'Grand total is divisible by 5' or 'Grand total is not divisible by 5' based on the result."
+                ),
+            ),
         ]
 
     def get_all_lessons(self) -> List[lesson]:
