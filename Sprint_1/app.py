@@ -25,8 +25,22 @@ socketio.init_app(app, cors_allowed_origins="*")
 
 @app.route('/', methods=['GET'])
 def home():
-    lesson = _lesson_storage.get_lesson_by_id(1)
-    return render_template('Question_Test.html', lesson=lesson)
+    requested_lesson_id = request.args.get('lesson', default=1, type=int)
+    lesson = _lesson_storage.get_lesson_by_id(requested_lesson_id)
+
+    if lesson is None:
+        requested_lesson_id = 1
+        lesson = _lesson_storage.get_lesson_by_id(requested_lesson_id)
+
+    next_lesson = _lesson_storage.get_next_lesson(requested_lesson_id)
+
+    return render_template(
+        'Question_Test.html',
+        lesson=lesson,
+        current_lesson_id=requested_lesson_id,
+        next_lesson_id=next_lesson.id if next_lesson else None,
+        next_lesson_title=next_lesson.title if next_lesson else None
+    )
 
 @app.route('/render-compiler')
 def render_compiler():
