@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Team Facing Page</title>
 
-     <link rel="stylesheet" href="{{ url_for('static', filename='xterm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='xterm.css') }}">
     <script src="{{ url_for('static', filename='xterm.js') }}"></script>
 
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
@@ -25,15 +25,17 @@
 
 </head>
 <body>
-    <h1>PyNotebook Page</h1>
-
-    <h3>Make sure to press run to save code!</h3>
-
-    <div id="editor"></div>
+    <div class="ide-container">
+      <div class="ide-left">
+      <div id="editor"></div>
+    </div>
+    <div class="ide-right">
+      <div id="terminal"></div>
+    </div>
+   </div>
 
     <button class="compile" type="submit">▶ Run</button>
-
-    <div id="terminal"></div>
+    
 
     <script type="module" src="{{ url_for('static', filename='monacoSetup.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='sockets/getSocketBackend.js') }}"></script>

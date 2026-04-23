@@ -10,6 +10,9 @@
  *     TBD
  */
 
+import { Terminal } from 'https://esm.sh/@xterm/xterm@5.5.0';
+import { FitAddon } from 'https://esm.sh/@xterm/addon-fit@0.10.0';
+
 /**
  * Class: TerminalManager
  * Description: Manages the xterm.js terminal instance and
@@ -37,8 +40,10 @@ export class TerminalManager
         // Initialize socket, terminal, inputStr, and hasCompiled
         this.socket = socket;
         this.term = new Terminal({
+            rows: 30,
+            cols: 80,
             theme: {
-                background: '#1e1e1e',
+                background: '#0e0505',
                 scrollbar: '#4e4e4e'
             },
             cursorBlink: true,
@@ -50,9 +55,41 @@ export class TerminalManager
         window.term = this.term;
         this.term.open(component);
 
+        // Make terminal fit visually
+        this.fitTerminal();
+        this.safeFit();
+
         // Setup terminal and sockets
         this.setupTerminal();
         this.setupTerminalSockets();
+    }
+
+    /**
+     * Function: fitTerminal()
+     * Description: Ensures the terminal window fits visually with the container
+     * @precondition:  The terminal instance must be initialized and opened.
+     * @postcondition: The terminal dynamically fits the container
+     */
+    fitTerminal()
+    {
+        console.log(FitAddon);
+        this.fitAddon = new FitAddon();
+        this.term.loadAddon(this.fitAddon);
+
+        // Initial fit
+        this.fitAddon.fit();
+
+        // Re-fit whenever the container resizes
+        const resizeObserver = new ResizeObserver(() => this.safeFit());
+        resizeObserver.observe(document.getElementById('terminal'));
+    }
+
+    safeFit() {
+        try {
+            this.fitAddon?.fit();
+        } catch (e) {
+            console.warn("Unable to fit terminal to its container.", e);
+        }
     }
 
     /**
