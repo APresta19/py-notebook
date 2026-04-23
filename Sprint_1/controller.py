@@ -71,7 +71,7 @@ It iterates through the question templates and fills in the placeholders with re
 """
 def generate_questions(context):
     questions = []
-    q_id = 0
+    output_added = False
 
     for template in storage.get_all_questions():
 
@@ -80,51 +80,52 @@ def generate_questions(context):
                 q = template.prompt.format(var=var)
 
                 questions.append({
-                    "id": f"q{q_id}",
+                    "id": f"q{len(questions)}",
                     "question": q,
                     "options": template.options,
                     "type": template.qtype,
                     "correct_answer": type(value).__name__ 
                 }) 
-            q_id += 1
+            
 
         if template.id == "var_value":
             for var, value in context["variables"].items():
                 q = template.prompt.format(var=var)
                 questions.append({
-                    "id": f"q{q_id}",
+                    "id": f"q{len(questions)}",
                     "question": q,
                     "options": template.options,
                     "type": template.qtype,
                     "correct_answer": str(value)
                 })
-            q_id += 1
+            
 
-        if template.id == "output":
-            q = template.prompt.format()
-            questions.append({
-                "id": f"q{q_id}",
-                "question": q,
-                "options": template.options,
-                "type": template.qtype,
-                # implement method for determining correct output based on context["prints"]
-                "correct_answer": context["outputs"]
-               })
-            q_id += 1
+        if template.id == "output" and output_added == False:
+                q = template.prompt.format()
+                questions.append({
+                    "id": f"q{len(questions)}",
+                    "question": q,
+                    "options": template.options,
+                    "type": template.qtype,
+                    # implement method for determining correct output based on context["prints"]
+                    "correct_answer": context["output"]
+                })
+                output_added = True  # Ensure we only add one output question per code submission
         
         if template.id == "loop_count":
             for loop in context["loops"]:
                 q = template.prompt.format(loop_count=loop)
                 questions.append({
-                    "id": f"q{q_id}",
+                    "id": f"q{len(questions)}",
                     "question": q,
                     "options": template.options,
                     "type": template.qtype,
                     "correct_answer": "TBD" # implement method for determining correct answer based on loop structure
                 })
-            q_id += 1
     
-    return questions
+    #Shuffle the questions to add some variability
+    random.shuffle(questions)
+    return questions[:4]  # Return a subset of questions (e.g., 4 questions) for the quiz
     
 ## Validate function is meerly for TESTING purposes.
 def validate_code(code):

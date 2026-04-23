@@ -64,12 +64,15 @@ def init_socket():
         user_answers = data.get('answers', [])
         print(f">>> answers received: {user_answers}")  # confirm answers received   
 
+        # normalize user answers and correct answers for comparison
+        user_answers = {k: str(v).strip().lower() for k, v in user_answers.items()}
+
         results = []
 
         for question in current_questions:
             question = question.copy()  # Create a copy to avoid modifying the original question template
             question_id = question['id']
-            correct = str(question['correct_answer']).strip().lower()
+            correct = str(question['correct_answer']).strip().lower().replace("\n", " ")  # Normalize correct answer for comparison
             user_answer = str(user_answers.get(question_id, '')).strip().lower()
 
             is_correct = (user_answer == correct)

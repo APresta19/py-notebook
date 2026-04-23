@@ -55,7 +55,7 @@ class question_storage:
             question_template(
                 id="output",
                 category="output",
-                prompt="What is the output of this code?",
+                prompt="What is the output of this code? (New lines should be represented as spaces)",
                 qtype="short_answer",
                 placeholders=[]
             ),
