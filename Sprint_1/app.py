@@ -37,9 +37,7 @@ def home():
     return render_template(
         'Question_Test.html',
         lesson=lesson,
-        current_lesson_id=requested_lesson_id,
-        next_lesson_id=next_lesson.id if next_lesson else None,
-        next_lesson_title=next_lesson.title if next_lesson else None
+        next_lesson_id=next_lesson.id if next_lesson else None
     )
 
 @app.route('/render-compiler')
