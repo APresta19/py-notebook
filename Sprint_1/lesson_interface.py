@@ -142,6 +142,12 @@ class lesson_storage:
                 return l
         return None
 
+    def get_next_lesson(self, lesson_id: int) -> Optional[lesson]:
+        for l in self.lessons:
+            if l.id > lesson_id:
+                return l
+        return None
+
 
 # Class to handle lesson interface
 class lesson_interface:

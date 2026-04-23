@@ -67,6 +67,26 @@
         overflow-y: auto;
         }
 
+        .quiz-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .quiz-panel-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .quiz-next-button[hidden] {
+            display: none;
+        }
+
         .question-block {
         background-color: #1e1e2f;
         padding: 10px;
@@ -119,12 +139,27 @@
         <iframe src="/render-compiler" width="100%" height="100%" frameborder="0"></iframe>
     </div>
 
-    <!-- Quiz Panel (YOUR RESPONSIBILITY) -->
-    <div class="quiz-panel">
+    <!--<div class="quiz-panel">
 
     <h2>Quiz</h2>
 
     <button onclick="generateQuestions()">Generate Questions</button>
+    
+    <div id="quiz-content">
+        <p class="placeholder">Click the button to generate quiz questions based on the current lesson.</p>
+    </div>-->
+
+    <div
+        class="quiz-panel"
+        data-next-lesson-id="{{ next_lesson_id or '' }}"
+    >
+    <div class="quiz-panel-header">
+        <h2>Quiz</h2>
+        <div class="quiz-panel-actions">
+            <button onclick="generateQuestions()">Generate Questions</button>
+            <button id="next-lesson-button" class="quiz-next-button" hidden>Next Lesson</button>
+        </div>
+    </div>
     
     <div id="quiz-content">
         <p class="placeholder">Click the button to generate quiz questions based on the current lesson.</p>
