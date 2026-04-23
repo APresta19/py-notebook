@@ -77,6 +77,8 @@ def init_socket():
 
             is_correct = (user_answer == correct)
 
+            if correct == 'tbd':
+                is_correct = True
 
             print("USER ANSWER: ", user_answer)
             print("CORRECT ANSWER: ", correct)

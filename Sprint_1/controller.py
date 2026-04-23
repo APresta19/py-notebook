@@ -120,7 +120,7 @@ def generate_questions(context):
                     "question": q,
                     "options": template.options,
                     "type": template.qtype,
-                    "correct_answer": "TBD" # implement method for determining correct answer based on loop structure
+                    "correct_answer": 'TBD' # implement method for determining correct answer based on loop structure
                 })
     
     #Shuffle the questions to add some variability

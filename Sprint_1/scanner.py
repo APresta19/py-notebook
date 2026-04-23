@@ -70,7 +70,7 @@ def scan_code(code: str):
         line = line.strip()
 
         # Variable assignment check
-        if "=" in line and "==" not in line: 
+        if "=" in line and not any(op in line for op in ["==", ">=", "<=", "!="]) and not line.startswith(("if ", "elif ", "while ", "for ")): 
             parts = line.split("=")
             var = parts[0].strip()
             context["variables"][var] = None  # placeholder
